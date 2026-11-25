@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=1280, initial-scale=1.0" />
+<title>LG Smart TV - Автономный Плеер</title>
+<style type="text/css">
+* {
+    margin: 0;
+    padding: 0;
+}
+html, body {
+    width: 1280px;
+    height: 720px;
+    background-color: #0b1018;
+    color: #e6ecf5;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    overflow: hidden;
+}
+#app-container {
+    width: 1280px;
+    height: 720px;
+    position: relative;
+    background-color: #0b1018;
+}
+/* Верхняя шапка */
+#header {
+    width: 1240px;
+    height: 64px;
+    padding: 12px 20px 0 20px;
+    background-color: #131c2b;
+    border-bottom: 2px solid #263650;
+}
+#app-title {
+    float: left;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffcc00;
+    line-height: 44px;
+    margin-right: 30px;
+}
+.tab-btn {
+    float: left;
+    height: 44px;
+    line-height: 44px;
+    padding: 0 22px;
+    margin-right: 12px;
+    background-color: #1c293d;
+    color: #b8c7dc;
+    border: 3px solid #2c3e5a;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.tab-btn-active-tab {
+    background-color: #243b5c;
+    color: #ffffff;
+    border-color: #4a76b8;
+}
+#status-bar {
+    float: right;
+    line-height: 44px;
+    font-size: 16px;
+    color: #8ea6c8;
+}
+
+/* Основная рабочая область */
+#main-area {
+    width: 1240px;
+    height: 560px;
+    padding: 16px 20px;
+    position: relative;
+}
+.panel {
+    width: 1240px;
+    height: 560px;
+    display: none;
+}
+.panel-visible {
+    display: block;
+}
+
+/* Левая и правая колонки */
+.col-left {
+    float: left;
+    width: 780px;
+    height: 550px;
+    background-color: #111824;
+    border: 2px solid #23324a;
+}
+.col-right {
+    float: right;
+    width: 430px;
+    height: 550px;
+    background-color: #111824;
+    border: 2px solid #23324a;
+}
+.col-header {
+    height: 42px;
+    line-height: 42px;
+    padding: 0 14px;
+    background-color: #182334;
+    border-bottom: 2px solid #23324a;
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffcc00;
+}
+.list-viewport {
+    width: 780px;
+    height: 454px;
+    overflow: hidden;
+    position: relative;
+}
+.toolbar-row {
+    height: 44px;
+    padding: 4px 10px;
+    background-color: #141e2e;
+    border-bottom: 1px solid #23324a;
+}
+.action-btn {
+    display: inline-block;
+    height: 34px;
+    line-height: 34px;
+    padding: 0 14px;
+    margin-right: 10px;
+    background-color: #1f2f47;
+    color: #d6e2f0;
+    border: 3px solid #30476b;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Элементы списка */
+.list-item {
+    height: 44px;
+    line-height: 44px;
+    padding: 0 14px;
+    margin: 4px 8px;
+    background-color: #172131;
+    border: 3px solid #1f2d42;
+    color: #dce6f5;
+    font-size: 19px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.item-num {
+    display: inline-block;
+    width: 44px;
+    color: #8ea6c8;
+    font-weight: bold;
+}
+.item-group {
+    float: right;
+    font-size: 15px;
+    color: #8ea6c8;
+}
+
+/* Блок информации справа */
+.info-box {
+    padding: 16px;
+    font-size: 18px;
+    line-height: 1.5;
+}
+.info-title {
+    font-size: 22px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 12px;
+}
+.info-meta {
+    color: #9bb1cf;
+    margin-bottom: 14px;
+    font-size: 16px;
+    word-wrap: break-word;
+}
+.hint-box {
+    margin-top: 20px;
+    padding: 12px;
+    background-color: #162030;
+    border: 1px solid #2a3d5a;
+    font-size: 16px;
+    color: #c5d4e8;
+}
+.hint-key {
+    color: #ffcc00;
+    font-weight: bold;
+}
+
+/* Вкладка Кино и Сериалы */
+.input-row {
+    padding: 10px 12px;
+    background-color: #141e2e;
+    border-bottom: 2px solid #23324a;
+}
+.tv-input {
+    width: 480px;
+    height: 36px;
+    line-height: 36px;
+    padding: 0 10px;
+    background-color: #0b1018;
+    color: #ffffff;
+    border: 3px solid #354d73;
+    font-size: 18px;
+    vertical-align: middle;
+}
+.movies-viewport {
+    width: 780px;
+    height: 416px;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Нижняя панель подсказок */
+#footer {
+    width: 1240px;
+    height: 44px;
+    line-height: 44px;
+    padding: 0 20px;
+    background-color: #131c2b;
+    border-top: 2px solid #263650;
+    font-size: 16px;
+    color: #a9bcd6;
+}
+.key-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    margin-right: 4px;
+    background-color: #253652;
+    border: 1px solid #45628f;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 14px;
+}
+.key-yellow {
+    background-color: #b58900;
+    border-color: #ffcc00;
+    color: #000000;
+}
+
+/* ЕДИНЫЙ СТИЛЬ ФОКУСА С ПУЛЬТА (яркая контрастная рамка) */
+.focused {
+    border: 3px solid #ffcc00 !important;
+    background-color: #1e4273 !important;
+    color: #ffffff !important;
+}
+
+/* Полноэкранный аппаратный плеер */
+#player-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1280px;
+    height: 720px;
+    background-color: #000000;
+    z-index: 100;
+    display: none;
+}
+#video-player {
+    width: 1280px;
+    height: 720px;
+    background-color: #000000;
+}
+#player-osd {
+    position: absolute;
+    left: 30px;
+    bottom: 30px;
+    width: 1200px;
+    padding: 12px 16px;
+    background-color: #0d1420;
+    border: 2px solid #ffcc00;
+    color: #ffffff;
+    z-index: 110;
+    display: none;
+}
+#osd-title {
+    font-size: 22px;
+    font-weight: bold;
+    color: #ffcc00;
+    margin-bottom: 6px;
+}
+#osd-status {
+    font-size: 17px;
+    color: #dce6f5;
+}
+
+/* Меню выбора качества поверх видео (Жёлтая кнопка 405) */
+#quality-menu {
+    position: absolute;
+    top: 120px;
+    left: 440px;
+    width: 400px;
+    background-color: #0f1724;
+    border: 3px solid #ffcc00;
+    z-index: 120;
+    display: none;
+}
+#quality-header {
+    padding: 12px 16px;
+    background-color: #1b2a42;
+    border-bottom: 2px solid #ffcc00;
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffcc00;
+}
+#quality-list {
+    padding: 8px;
+}
+.quality-item {
+    height: 42px;
+    line-height: 42px;
+    padding: 0 14px;
+    margin: 4px 0;
+    background-color: #182336;
+    border: 3px solid #2b3e5e;
+    color: #ffffff;
+    font-size: 19px;
+}
+</style>
+</head>
+<body>
+<div id="app-container">
+    <div id="header">
+        <div id="app-title">LG TV Автономный Плеер</div>
+        <div id="tab-tv" class="tab-btn tab-btn-active-tab">1. ТВ-каналы</div>
+        <div id="tab-movies" class="tab-btn">2. Кино и Сериалы</div>
+        <div id="status-bar">Загрузка...</div>
+    </div>
+
+    <div id="main-area">
+        <!-- ВКЛАДКА 1: ТВ-КАНАЛЫ -->
+        <div id="panel-tv" class="panel panel-visible">
+            <div class="col-left">
+                <div class="col-header">Список телеканалов (<span id="tv-count">0</span>)</div>
+                <div class="toolbar-row">
+                    <div id="btn-reload-online" class="action-btn">Обновить из сети</div>
+                    <div id="btn-load-local" class="action-btn">Локальный playlist.m3u</div>
+                </div>
+                <div id="tv-list-viewport" class="list-viewport">
+                    <div id="tv-list"></div>
+                </div>
+            </div>
+            <div class="col-right">
+                <div class="col-header">Информация о канале</div>
+                <div class="info-box">
+                    <div id="tv-info-title" class="info-title">Выберите канал</div>
+                    <div id="tv-info-group" class="info-meta">Источник: ожидание...</div>
+                    <div id="tv-info-url" class="info-meta"></div>
+                    <div class="hint-box">
+                        <div><span class="hint-key">ОК</span> — открыть на весь экран</div>
+                        <div><span class="hint-key">Вверх / Вниз</span> — выбор канала</div>
+                        <div><span class="hint-key">Влево / Вправо</span> — переключение вкладок</div>
+                        <div><span class="hint-key">Жёлтая кнопка</span> — качество в плеере</div>
+                        <div><span class="hint-key">Назад (Back)</span> — стоп и возврат</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ВКЛАДКА 2: КИНО И СЕРИАЛЫ (БЕЗ ДОНАТОВ) -->
+        <div id="panel-movies" class="panel">
+            <div class="col-left">
+                <div class="col-header">Кино и Сериалы (открытые базы и прямые ссылки)</div>
+                <div class="input-row">
+                    <input id="movie-input" class="tv-input" type="text" value="" placeholder="Запрос (напр. Chaplin) или URL .mp4 / .m3u8" />
+                    <div id="btn-movie-search" class="action-btn">Поиск</div>
+                    <div id="btn-movie-play-url" class="action-btn">Играть URL</div>
+                </div>
+                <div id="movies-viewport" class="movies-viewport">
+                    <div id="movies-list"></div>
+                </div>
+            </div>
+            <div class="col-right">
+                <div class="col-header">Описание и запуск</div>
+                <div class="info-box">
+                    <div id="movie-info-title" class="info-title">Открытый каталог и URL</div>
+                    <div id="movie-info-meta" class="info-meta">Введите название на английском/русском для поиска в открытой базе Archive.org или вставьте прямую ссылку на .mp4 / .m3u8. Без подписок и донатов.</div>
+                    <div class="hint-box">
+                        <div><span class="hint-key">ОК на поле ввода</span> — открыть клавиатуру ТВ</div>
+                        <div><span class="hint-key">Поиск</span> — поиск бесплатных фильмов (.mp4)</div>
+                        <div><span class="hint-key">Играть URL</span> — запуск введённой ссылки</div>
+                        <div><span class="hint-key">Жёлтая кнопка</span> — выбор качества видео</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer">
+        <span class="key-badge">ВВЕРХ/ВНИЗ/ВЛЕВО/ВПРАВО</span> Навигация &nbsp;&nbsp;
+        <span class="key-badge">ОК</span> Выбрать / Смотреть &nbsp;&nbsp;
+        <span class="key-badge key-yellow">ЖЁЛТАЯ</span> Качество (480p/720p/1080p) &nbsp;&nbsp;
+        <span class="key-badge">BACK</span> Стоп / Назад
+    </div>
+
+    <!-- ПОЛНОЭКРАННЫЙ АППАРАТНЫЙ ПЛЕЕР -->
+    <div id="player-screen">
+        <video id="video-player" autoplay="autoplay"></video>
+        <div id="player-osd">
+            <div id="osd-title">Воспроизведение</div>
+            <div id="osd-status">Загрузка потока... | ЖЁЛТАЯ — качество | BACK — выход</div>
+        </div>
+        <div id="quality-menu">
+            <div id="quality-header">Выбор качества видео</div>
+            <div id="quality-list"></div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+(function () {
+    // =========================================================
+    // ГЛОБАЛЬНОЕ СОСТОЯНИЕ ПРИЛОЖЕНИЯ (СТРОГО ES5)
+    // =========================================================
+    var ONLINE_PLAYLIST_URL = "https://iptv-org.github.io/iptv/countries/ru.m3u";
+    var LOCAL_PLAYLIST_URL = "playlist.m3u";
+
+    var state = {
+        activeTab: "tv",          // "tv" или "movies"
+        focusZone: "list",        // "tabs", "toolbar", "list", "movie_input", "movie_list"
+        tabIndex: 0,              // 0 - ТВ, 1 - Кино
+        toolbarIndex: 0,          // 0 - Обновить из сети, 1 - Локальный
+        tvIndex: 0,
+        movieToolbarIndex: 0,     // 0 - input, 1 - Поиск, 2 - Играть URL
+        movieIndex: 0,
+        channels: [],
+        movies: [],
+        inPlayer: false,
+        inQualityMenu: false,
+        qualityIndex: 0,
+        qualities: [],
+        currentStreamUrl: "",
+        currentTitle: "",
+        isLiveStream: true,
+        inputEditing: false
+    };
+
+    var osdTimer = null;
+
+    // Предустановленные бесплатные видео и открытые источники без донатов
+    var defaultMovies = [
+        {
+            title: "Big Buck Bunny (Тест 1080p HLS мультибитрейт)",
+            year: "2008",
+            meta: "HLS (.m3u8) — тест переключения качества 480p / 720p / 1080p по жёлтой кнопке",
+            url: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
+            isLive: false
+        },
+        {
+            title: "Sintel (Открытый фильм Blender, HLS)",
+            year: "2010",
+            meta: "HLS (.m3u8) — бесплатный короткометражный фильм с выбором качества",
+            url: "https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8",
+            isLive: false
+        },
+        {
+            title: "Tears of Steel (Фантастика, HLS 1080p)",
+            year: "2012",
+            meta: "HLS (.m3u8) — открытый фильм Blender Foundation",
+            url: "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.ism/.m3u8",
+            isLive: false
+        },
+        {
+            title: "Archive.org: Ночь живых мертвецов (1968, MP4)",
+            year: "1968",
+            meta: "Открытое достояние (Archive.org) — прямой MP4",
+            archiveId: "night_of_the_living_dead",
+            isLive: false
+        },
+        {
+            title: "Archive.org: Его девушка Пятница (1940, MP4)",
+            year: "1940",
+            meta: "Открытое достояние (Archive.org) — прямой MP4",
+            archiveId: "his_girl_friday",
+            isLive: false
+        }
+    ];
+
+    // =========================================================
+    // УТИЛИТЫ DOM И СТРОК (СОВМЕСТИМЫЕ С WEBKIT 2012-2013)
+    // =========================================================
+    function byId(id) {
+        return document.getElementById(id);
+    }
+
+    function trimStr(s) {
+        if (!s) { return ""; }
+        return s.replace(/^\s+|\s+$/g, "");
+    }
+
+    function hasClass(el, cls) {
+        if (!el || !el.className) { return false; }
+        return (" " + el.className + " ").indexOf(" " + cls + " ") !== -1;
+    }
+
+    function addClass(el, cls) {
+        if (!el) { return; }
+        if (!hasClass(el, cls)) {
+            el.className = trimStr(el.className + " " + cls);
+        }
+    }
+
+    function removeClass(el, cls) {
+        if (!el || !el.className) { return; }
+        var parts = el.className.split(" ");
+        var out = [];
+        for (var i = 0; i < parts.length; i++) {
+            if (parts[i] && parts[i] !== cls) {
+                out.push(parts[i]);
+            }
+        }
+        el.className = out.join(" ");
+    }
+
+    function setStatus(text) {
+        byId("status-bar").innerHTML = escapeHtml(text);
+    }
+
+    function escapeHtml(str) {
+        if (!str) { return ""; }
+        return String(str)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;");
+    }
+
+    function resolveUrl(baseUrl, relUrl) {
+        if (!relUrl) { return ""; }
+        if (relUrl.indexOf("http://") === 0 || relUrl.indexOf("https://") === 0) {
+            return relUrl;
+        }
+        if (relUrl.indexOf("//") === 0) {
+            var proto = baseUrl.indexOf("https://") === 0 ? "https:" : "http:";
+            return proto + relUrl;
+        }
+        var qPos = baseUrl.indexOf("?");
+        var cleanBase = qPos !== -1 ? baseUrl.substring(0, qPos) : baseUrl;
+        if (relUrl.charAt(0) === "/") {
+            var schemeEnd = cleanBase.indexOf("://");
+            if (schemeEnd !== -1) {
+                var hostEnd = cleanBase.indexOf("/", schemeEnd + 3);
+                var origin = hostEnd !== -1 ? cleanBase.substring(0, hostEnd) : cleanBase;
+                return origin + relUrl;
+            }
+        }
+        var lastSlash = cleanBase.lastIndexOf("/");
+        var dir = lastSlash !== -1 ? cleanBase.substring(0, lastSlash + 1) : "";
+        return dir + relUrl;
+    }
+
+    function xhrGet(url, timeoutMs, onSuccess, onError) {
+        var xhr = new XMLHttpRequest();
+        var done = false;
+        var timer = null;
+
+        try {
+            xhr.open("GET", url, true);
+        } catch (e) {
+            if (onError) { onError("Ошибка открытия запроса"); }
+            return;
+        }
+
+        if (timeoutMs > 0) {
+            timer = setTimeout(function () {
+                if (!done) {
+                    done = true;
+                    try { xhr.abort(); } catch (e) {}
+                    if (onError) { onError("Таймаут загрузки"); }
+                }
+            }, timeoutMs);
+        }
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && !done) {
+                done = true;
+                if (timer) { clearTimeout(timer); }
+                // Для file:// на некоторых ТВ status бывает 0 при успешном чтении
+                if ((xhr.status >= 200 && xhr.status < 300) || (xhr.status === 0 && xhr.responseText)) {
+                    if (onSuccess) { onSuccess(xhr.responseText); }
+                } else {
+                    if (onError) { onError("HTTP " + xhr.status); }
+                }
+            }
+        };
+
+        try {
+            xhr.send(null);
+        } catch (e2) {
+            if (!done) {
+                done = true;
+                if (timer) { clearTimeout(timer); }
+                if (onError) { onError("Сбой отправки запроса"); }
+            }
+        }
+    }
+
+    // =========================================================
+    // ПАРСЕР M3U (ES5)
+    // =========================================================
+    function parseM3U(text) {
+        var lines = text.split(/\r?\n/);
+        var list = [];
+        var currentMeta = null;
+
+        for (var i = 0; i < lines.length; i++) {
+            var line = trimStr(lines[i]);
+            if (!line) { continue; }
+
+            if (line.indexOf("#EXTINF:") === 0) {
+                var name = "Канал";
+                var commaIdx = line.lastIndexOf(",");
+                if (commaIdx !== -1 && commaIdx < line.length - 1) {
+                    name = trimStr(line.substring(commaIdx + 1));
+                }
+                var group = "";
+                var grpMatch = line.match(/group-title="([^"]*)"/i);
+                if (grpMatch && grpMatch[1]) {
+                    group = grpMatch[1];
+                }
+                currentMeta = {
+                    name: name,
+                    group: group || "ТВ"
+                };
+            } else if (line.charAt(0) !== "#") {
+                // Фильтруем неподдерживаемые NetCast 4.0 форматы (.mpd)
+                if (line.indexOf(".mpd") === -1 && (line.indexOf("http://") === 0 || line.indexOf("https://") === 0)) {
+                    list.push({
+                        name: currentMeta ? currentMeta.name : ("Канал " + (list.length + 1)),
+                        group: currentMeta ? currentMeta.group : "ТВ",
+                        url: line
+                    });
+                }
+                currentMeta = null;
+            }
+        }
+        return list;
+    }
+
+    function loadChannelsOnlineFirst() {
+        setStatus("Загрузка онлайн-плейлиста...");
+        xhrGet(ONLINE_PLAYLIST_URL, 6000, function (text) {
+            var parsed = parseM3U(text);
+            if (parsed.length > 0) {
+                state.channels = parsed;
+                state.tvIndex = 0;
+                setStatus("Онлайн-лист: " + parsed.length + " каналов");
+                renderChannels();
+                updateFocusVisuals();
+            } else {
+                loadChannelsLocal("Пустой онлайн-лист");
+            }
+        }, function (err) {
+            loadChannelsLocal("Нет сети (" + err + ")");
+        });
+    }
+
+    function loadChannelsLocal(reason) {
+        setStatus((reason ? reason + " -> " : "") + "Загрузка playlist.m3u...");
+        xhrGet(LOCAL_PLAYLIST_URL, 3000, function (text) {
+            var parsed = parseM3U(text);
+            state.channels = parsed;
+            state.tvIndex = 0;
+            setStatus("Локальный playlist.m3u: " + parsed.length + " каналов");
+            renderChannels();
+            updateFocusVisuals();
+        }, function () {
+            setStatus("Ошибка чтения playlist.m3u");
+        });
+    }
+
+    function renderChannels() {
+        var container = byId("tv-list");
+        var html = "";
+        var list = state.channels;
+        byId("tv-count").innerHTML = String(list.length);
+
+        if (list.length === 0) {
+            container.innerHTML = '<div class="list-item">Список каналов пуст</div>';
+            return;
+        }
+
+        // Ограничиваем рендер до 150 элементов ради экономии ~150MB RAM на ТВ
+        var maxRender = list.length > 150 ? 150 : list.length;
+        for (var i = 0; i < maxRender; i++) {
+            var ch = list[i];
+            html += '<div id="tv-item-' + i + '" class="list-item">' +
+                '<span class="item-num">' + (i + 1) + '.</span>' +
+                '<span class="item-group">' + escapeHtml(ch.group) + '</span>' +
+                escapeHtml(ch.name) +
+                '</div>';
+        }
+        container.innerHTML = html;
+        updateChannelInfo();
+    }
+
+    function updateChannelInfo() {
+        var ch = state.channels[state.tvIndex];
+        if (!ch) {
+            byId("tv-info-title").innerHTML = "Нет выбранного канала";
+            byId("tv-info-group").innerHTML = "";
+            byId("tv-info-url").innerHTML = "";
+            return;
+        }
+        byId("tv-info-title").innerHTML = escapeHtml(ch.name);
+        byId("tv-info-group").innerHTML = "Категория: " + escapeHtml(ch.group);
+        byId("tv-info-url").innerHTML = "Поток: " + escapeHtml(ch.url);
+    }
+
+    // =========================================================
+    // ВКЛАДКА «КИНО И СЕРИАЛЫ (БЕЗ ДОНАТОВ)»
+    // =========================================================
+    function renderMovies() {
+        var container = byId("movies-list");
+        var html = "";
+        var list = state.movies;
+
+        if (list.length === 0) {
+            container.innerHTML = '<div class="list-item">Ничего не найдено</div>';
+            return;
+        }
+
+        for (var i = 0; i < list.length; i++) {
+            var m = list[i];
+            html += '<div id="movie-item-' + i + '" class="list-item">' +
+                '<span class="item-num">' + (i + 1) + '.</span>' +
+                '<span class="item-group">' + escapeHtml(m.year || "") + '</span>' +
+                escapeHtml(m.title) +
+                '</div>';
+        }
+        container.innerHTML = html;
+        updateMovieInfo();
+    }
+
+    function updateMovieInfo() {
+        var m = state.movies[state.movieIndex];
+        if (!m) {
+            return;
+        }
+        byId("movie-info-title").innerHTML = escapeHtml(m.title);
+        byId("movie-info-meta").innerHTML = escapeHtml(m.meta || (m.url || ""));
+    }
+
+    function searchArchiveOrg(query) {
+        var q = trimStr(query);
+        if (!q) {
+            state.movies = defaultMovies.slice(0);
+            state.movieIndex = 0;
+            renderMovies();
+            updateFocusVisuals();
+            return;
+        }
+        setStatus("Поиск в открытой базе Archive.org...");
+        var apiUrl = "https://archive.org/advancedsearch.php?q=" +
+            encodeURIComponent("mediatype:movies AND (" + q + ")") +
+            "&fl[]=identifier&fl[]=title&fl[]=year&rows=20&page=1&output=json";
+
+        xhrGet(apiUrl, 8000, function (respText) {
+            var data = null;
+            try {
+                data = JSON.parse(respText);
+            } catch (e) {
+                setStatus("Ошибка разбора ответа поиска");
+                return;
+            }
+            var docs = (data && data.response && data.response.docs) ? data.response.docs : [];
+            if (docs.length === 0) {
+                setStatus("По запросу ничего не найдено");
+                return;
+            }
+            var results = [];
+            for (var i = 0; i < docs.length; i++) {
+                var d = docs[i];
+                results.push({
+                    title: d.title || d.identifier,
+                    year: d.year ? String(d.year) : "Фильм",
+                    meta: "Archive.org ID: " + d.identifier + " (открытое кино без донатов)",
+                    archiveId: d.identifier,
+                    isLive: false
+                });
+            }
+            state.movies = results;
+            state.movieIndex = 0;
+            state.focusZone = "movie_list";
+            setStatus("Найдено фильмов: " + results.length);
+            renderMovies();
+            updateFocusVisuals();
+        }, function (err) {
+            setStatus("Ошибка поиска: " + err);
+        });
+    }
+
+    function playArchiveItem(item) {
+        setStatus("Получение прямой ссылки MP4...");
+        var metaUrl = "https://archive.org/metadata/" + encodeURIComponent(item.archiveId) + "/files";
+        xhrGet(metaUrl, 8000, function (respText) {
+            var data = null;
+            try {
+                data = JSON.parse(respText);
+            } catch (e) {
+                setStatus("Ошибка чтения метаданных фильма");
+                return;
+            }
+            var files = (data && data.result) ? data.result : [];
+            var mp4File = null;
+            for (var i = 0; i < files.length; i++) {
+                var f = files[i];
+                if (f.name && f.name.toLowerCase().indexOf(".mp4") !== -1) {
+                    mp4File = f.name;
+                    break;
+                }
+            }
+            if (!mp4File) {
+                setStatus("Для этого видео не найден MP4-файл");
+                return;
+            }
+            var directUrl = "https://archive.org/download/" + encodeURIComponent(item.archiveId) + "/" + encodeURIComponent(mp4File);
+            startPlayer(directUrl, item.title, false);
+        }, function (err) {
+            setStatus("Не удалось получить MP4: " + err);
+        });
+    }
+
+    // =========================================================
+    // ПАРСЕР КАЧЕСТВА .M3U8 (#EXT-X-STREAM-INF) НА ES5
+    // =========================================================
+    function parseM3U8Qualities(masterUrl, text) {
+        var lines = text.split(/\r?\n/);
+        var variants = [];
+        var i;
+
+        for (i = 0; i < lines.length; i++) {
+            var line = trimStr(lines[i]);
+            if (line.indexOf("#EXT-X-STREAM-INF:") === 0) {
+                var resMatch = line.match(/RESOLUTION=(\d+)x(\d+)/i);
+                var label = "";
+                var height = 0;
+                if (resMatch && resMatch[2]) {
+                    height = parseInt(resMatch[2], 10);
+                    label = height + "p (" + resMatch[1] + "x" + resMatch[2] + ")";
+                } else {
+                    var bwMatch = line.match(/BANDWIDTH=(\d+)/i);
+                    label = bwMatch ? (Math.round(parseInt(bwMatch[1], 10) / 1000) + " kbps") : "Поток";
+                }
+
+                // Ищем следующую непустую строку без #
+                var nextUrl = "";
+                for (var j = i + 1; j < lines.length; j++) {
+                    var candidate = trimStr(lines[j]);
+                    if (candidate && candidate.charAt(0) !== "#") {
+                        nextUrl = resolveUrl(masterUrl, candidate);
+                        i = j;
+                        break;
+                    }
+                }
+                if (nextUrl) {
+                    variants.push({
+                        label: label,
+                        height: height,
+                        url: nextUrl
+                    });
+                }
+            }
+        }
+
+        if (variants.length === 0) {
+            return [];
+        }
+
+        // Сортируем от высокого качества к низкому
+        variants.sort(function (a, b) {
+            return b.height - a.height;
+        });
+
+        var result = [{ label: "Авто (оригинал)", height: 9999, url: masterUrl }];
+        for (i = 0; i < variants.length; i++) {
+            result.push(variants[i]);
+        }
+        return result;
+    }
+
+    function probeM3U8Qualities(url) {
+        state.qualities = [{ label: "Авто (по умолчанию)", height: 9999, url: url }];
+        state.qualityIndex = 0;
+
+        if (!url || url.toLowerCase().indexOf(".m3u8") === -1) {
+            return;
+        }
+
+        xhrGet(url, 5000, function (text) {
+            var parsed = parseM3U8Qualities(url, text);
+            if (parsed.length > 1) {
+                state.qualities = parsed;
+                state.qualityIndex = 0;
+                showOsd(state.currentTitle, "Доступно качеств: " + (parsed.length - 1) + " (Жёлтая кнопка — выбор)");
+            }
+        }, function () {
+            // Если CORS или сеть не отдала текст манифеста, оставляем Авто
+        });
+    }
+
+    // =========================================================
+    // АППАРАТНЫЙ ПЛЕЕР <video> БЕЗ УТЕЧЕК ПАМЯТИ
+    // =========================================================
+    function showOsd(title, statusText) {
+        byId("osd-title").innerHTML = escapeHtml(title);
+        byId("osd-status").innerHTML = escapeHtml(statusText);
+        byId("player-osd").style.display = "block";
+        if (osdTimer) {
+            clearTimeout(osdTimer);
+        }
+        osdTimer = setTimeout(function () {
+            byId("player-osd").style.display = "none";
+        }, 4500);
+    }
+
+    function startPlayer(url, title, isLive) {
+        var video = byId("video-player");
+        state.inPlayer = true;
+        state.inQualityMenu = false;
+        state.currentStreamUrl = url;
+        state.currentTitle = title || "Видео";
+        state.isLiveStream = !!isLive;
+
+        byId("quality-menu").style.display = "none";
+        byId("player-screen").style.display = "block";
+
+        // Сброс предыдущего потока перед запуском нового
+        try {
+            video.pause();
+            video.removeAttribute("src");
+            video.src = "";
+            video.load();
+        } catch (e) {}
+
+        video.src = url;
+        try {
+            video.play();
+        } catch (e2) {}
+
+        showOsd(state.currentTitle, "ЖЁЛТАЯ (405) — качество | BACK — стоп и возврат");
+        probeM3U8Qualities(url);
+    }
+
+    function stopPlayer() {
+        var video = byId("video-player");
+        if (osdTimer) {
+            clearTimeout(osdTimer);
+            osdTimer = null;
+        }
+        try {
+            video.pause();
+            video.removeAttribute("src");
+            video.src = "";
+            video.load();
+        } catch (e) {}
+
+        state.inPlayer = false;
+        state.inQualityMenu = false;
+        state.qualities = [];
+        byId("quality-menu").style.display = "none";
+        byId("player-osd").style.display = "none";
+        byId("player-screen").style.display = "none";
+        updateFocusVisuals();
+    }
+
+    function openQualityMenu() {
+        if (!state.inPlayer) { return; }
+        if (state.qualities.length <= 1) {
+            showOsd(state.currentTitle, "Источник не поддерживает выбор качества (только Авто)");
+            return;
+        }
+        state.inQualityMenu = true;
+        renderQualityMenu();
+        byId("quality-menu").style.display = "block";
+    }
+
+    function closeQualityMenu() {
+        state.inQualityMenu = false;
+        byId("quality-menu").style.display = "none";
+    }
+
+    function renderQualityMenu() {
+        var listEl = byId("quality-list");
+        var html = "";
+        for (var i = 0; i < state.qualities.length; i++) {
+            var cls = (i === state.qualityIndex) ? "quality-item focused" : "quality-item";
+            html += '<div class="' + cls + '">' + escapeHtml(state.qualities[i].label) + '</div>';
+        }
+        listEl.innerHTML = html;
+    }
+
+    function applyQualitySelection() {
+        var q = state.qualities[state.qualityIndex];
+        if (!q || !q.url) {
+            closeQualityMenu();
+            return;
+        }
+
+        var video = byId("video-player");
+        var savedTime = 0;
+        var shouldSeek = false;
+
+        if (!state.isLiveStream && video.duration && isFinite(video.duration) && video.duration > 0 && video.currentTime > 1) {
+            savedTime = video.currentTime;
+            shouldSeek = true;
+        }
+
+        closeQualityMenu();
+
+        try {
+            video.pause();
+            video.removeAttribute("src");
+            video.src = "";
+            video.load();
+        } catch (e) {}
+
+        if (shouldSeek) {
+            var onLoaded = function () {
+                video.removeEventListener("loadedmetadata", onLoaded, false);
+                try {
+                    video.currentTime = savedTime;
+                    video.play();
+                } catch (err) {}
+            };
+            video.addEventListener("loadedmetadata", onLoaded, false);
+        }
+
+        video.src = q.url;
+        try {
+            video.play();
+        } catch (e2) {}
+
+        showOsd(state.currentTitle, "Качество: " + q.label + (shouldSeek ? " (продолжение с " + Math.floor(savedTime) + "с)" : ""));
+    }
+
+    // =========================================================
+    // НАВИГАЦИЯ И ОТРИСОВКА ФОКУСА
+    // =========================================================
+    function switchTab(tabName) {
+        state.activeTab = tabName;
+        if (tabName === "tv") {
+            state.tabIndex = 0;
+            addClass(byId("tab-tv"), "tab-btn-active-tab");
+            removeClass(byId("tab-movies"), "tab-btn-active-tab");
+            addClass(byId("panel-tv"), "panel-visible");
+            removeClass(byId("panel-movies"), "panel-visible");
+        } else {
+            state.tabIndex = 1;
+            addClass(byId("tab-movies"), "tab-btn-active-tab");
+            removeClass(byId("tab-tv"), "tab-btn-active-tab");
+            addClass(byId("panel-movies"), "panel-visible");
+            removeClass(byId("panel-tv"), "panel-visible");
+        }
+    }
+
+    function scrollViewportToItem(viewportId, itemEl) {
+        var vp = byId(viewportId);
+        if (!vp || !itemEl) { return; }
+        var itemTop = itemEl.offsetTop;
+        var itemBottom = itemTop + itemEl.offsetHeight + 8;
+        var vpTop = vp.scrollTop;
+        var vpHeight = vp.clientHeight;
+
+        if (itemTop < vpTop) {
+            vp.scrollTop = itemTop - 4;
+        } else if (itemBottom > vpTop + vpHeight) {
+            vp.scrollTop = itemBottom - vpHeight;
+        }
+    }
+
+    function clearAllFocusClasses() {
+        var ids = ["tab-tv", "tab-movies", "btn-reload-online", "btn-load-local", "movie-input", "btn-movie-search", "btn-movie-play-url"];
+        var i;
+        for (i = 0; i < ids.length; i++) {
+            removeClass(byId(ids[i]), "focused");
+        }
+        var maxTv = state.channels.length > 150 ? 150 : state.channels.length;
+        for (i = 0; i < maxTv; i++) {
+            removeClass(byId("tv-item-" + i), "focused");
+        }
+        for (i = 0; i < state.movies.length; i++) {
+            removeClass(byId("movie-item-" + i), "focused");
+        }
+    }
+
+    function updateFocusVisuals() {
+        clearAllFocusClasses();
+
+        if (state.focusZone === "tabs") {
+            addClass(byId(state.tabIndex === 0 ? "tab-tv" : "tab-movies"), "focused");
+            return;
+        }
+
+        if (state.activeTab === "tv") {
+            if (state.focusZone === "toolbar") {
+                addClass(byId(state.toolbarIndex === 0 ? "btn-reload-online" : "btn-load-local"), "focused");
+            } else {
+                var tvEl = byId("tv-item-" + state.tvIndex);
+                if (tvEl) {
+                    addClass(tvEl, "focused");
+                    scrollViewportToItem("tv-list-viewport", tvEl);
+                    updateChannelInfo();
+                }
+            }
+        } else {
+            if (state.focusZone === "movie_input") {
+                var mIds = ["movie-input", "btn-movie-search", "btn-movie-play-url"];
+                addClass(byId(mIds[state.movieToolbarIndex]), "focused");
+            } else {
+                var mvEl = byId("movie-item-" + state.movieIndex);
+                if (mvEl) {
+                    addClass(mvEl, "focused");
+                    scrollViewportToItem("movies-viewport", mvEl);
+                    updateMovieInfo();
+                }
+            }
+        }
+    }
+
+    // =========================================================
+    // ОБРАБОТЧИК ПУЛЬТА LG (document.onkeydown)
+    // =========================================================
+    document.onkeydown = function (e) {
+        var evt = e || window.event;
+        var key = evt.keyCode || evt.which;
+
+        // Если пользователь набирает текст в input с экранной клавиатуры
+        if (state.inputEditing) {
+            if (key === 13) {
+                byId("movie-input").blur();
+                state.inputEditing = false;
+                state.movieToolbarIndex = 1;
+                updateFocusVisuals();
+                return false;
+            }
+            if (key === 461 || key === 27) {
+                byId("movie-input").blur();
+                state.inputEditing = false;
+                updateFocusVisuals();
+                return false;
+            }
+            return true;
+        }
+
+        // Режим полноэкранного плеера
+        if (state.inPlayer) {
+            if (state.inQualityMenu) {
+                if (key === 38) { // Вверх
+                    if (state.qualityIndex > 0) { state.qualityIndex--; }
+                    renderQualityMenu();
+                } else if (key === 40) { // Вниз
+                    if (state.qualityIndex < state.qualities.length - 1) { state.qualityIndex++; }
+                    renderQualityMenu();
+                } else if (key === 13) { // ОК
+                    applyQualitySelection();
+                } else if (key === 405 || key === 461 || key === 8) { // Жёлтая или Назад
+                    closeQualityMenu();
+                }
+                if (evt.preventDefault) { evt.preventDefault(); }
+                return false;
+            }
+
+            if (key === 405) { // Жёлтая кнопка пульта LG
+                openQualityMenu();
+            } else if (key === 461 || key === 8) { // Назад (Back) — полный стоп и очистка памяти
+                stopPlayer();
+            } else if (key === 13) { // ОК — показать OSD
+                showOsd(state.currentTitle, "ЖЁЛТАЯ (405) — качество | BACK — стоп и возврат");
+            }
+            if (evt.preventDefault) { evt.preventDefault(); }
+            return false;
+        }
+
+        // Навигация в главном меню
+        if (key === 37) { // Влево
+            if (state.focusZone === "tabs") {
+                state.tabIndex = state.tabIndex === 0 ? 1 : 0;
+                switchTab(state.tabIndex === 0 ? "tv" : "movies");
+            } else if (state.activeTab === "tv" && state.focusZone === "toolbar") {
+                state.toolbarIndex = state.toolbarIndex === 0 ? 1 : 0;
+            } else if (state.activeTab === "movies" && state.focusZone === "movie_input") {
+                if (state.movieToolbarIndex > 0) { state.movieToolbarIndex--; }
+            } else {
+                state.tabIndex = 0;
+                switchTab("tv");
+                state.focusZone = "list";
+            }
+        } else if (key === 39) { // Вправо
+            if (state.focusZone === "tabs") {
+                state.tabIndex = state.tabIndex === 0 ? 1 : 0;
+                switchTab(state.tabIndex === 0 ? "tv" : "movies");
+            } else if (state.activeTab === "tv" && state.focusZone === "toolbar") {
+                state.toolbarIndex = state.toolbarIndex === 0 ? 1 : 0;
+            } else if (state.activeTab === "movies" && state.focusZone === "movie_input") {
+                if (state.movieToolbarIndex < 2) { state.movieToolbarIndex++; }
+            } else {
+                state.tabIndex = 1;
+                switchTab("movies");
+                state.focusZone = "movie_list";
+            }
+        } else if (key === 38) { // Вверх
+            if (state.activeTab === "tv") {
+                if (state.focusZone === "list") {
+                    if (state.tvIndex > 0) {
+                        state.tvIndex--;
+                    } else {
+                        state.focusZone = "toolbar";
+                    }
+                } else if (state.focusZone === "toolbar") {
+                    state.focusZone = "tabs";
+                }
+            } else {
+                if (state.focusZone === "movie_list") {
+                    if (state.movieIndex > 0) {
+                        state.movieIndex--;
+                    } else {
+                        state.focusZone = "movie_input";
+                    }
+                } else if (state.focusZone === "movie_input") {
+                    state.focusZone = "tabs";
+                }
+            }
+        } else if (key === 40) { // Вниз
+            if (state.focusZone === "tabs") {
+                state.focusZone = (state.activeTab === "tv") ? "toolbar" : "movie_input";
+            } else if (state.activeTab === "tv") {
+                if (state.focusZone === "toolbar") {
+                    state.focusZone = "list";
+                } else if (state.focusZone === "list") {
+                    var maxTv = (state.channels.length > 150 ? 150 : state.channels.length) - 1;
+                    if (state.tvIndex < maxTv) { state.tvIndex++; }
+                }
+            } else {
+                if (state.focusZone === "movie_input") {
+                    state.focusZone = "movie_list";
+                } else if (state.focusZone === "movie_list") {
+                    if (state.movieIndex < state.movies.length - 1) { state.movieIndex++; }
+                }
+            }
+        } else if (key === 13) { // ОК
+            if (state.focusZone === "tabs") {
+                switchTab(state.tabIndex === 0 ? "tv" : "movies");
+                state.focusZone = (state.activeTab === "tv") ? "list" : "movie_list";
+            } else if (state.activeTab === "tv") {
+                if (state.focusZone === "toolbar") {
+                    if (state.toolbarIndex === 0) {
+                        loadChannelsOnlineFirst();
+                    } else {
+                        loadChannelsLocal("Ручной выбор");
+                    }
+                } else if (state.focusZone === "list") {
+                    var ch = state.channels[state.tvIndex];
+                    if (ch && ch.url) {
+                        startPlayer(ch.url, ch.name, true);
+                    }
+                }
+            } else {
+                if (state.focusZone === "movie_input") {
+                    if (state.movieToolbarIndex === 0) {
+                        state.inputEditing = true;
+                        byId("movie-input").focus();
+                        return true;
+                    } else if (state.movieToolbarIndex === 1) {
+                        searchArchiveOrg(byId("movie-input").value);
+                    } else if (state.movieToolbarIndex === 2) {
+                        var customUrl = trimStr(byId("movie-input").value);
+                        if (customUrl) {
+                            startPlayer(customUrl, "Прямая ссылка", customUrl.indexOf(".m3u8") !== -1);
+                        } else {
+                            setStatus("Введите URL .mp4 или .m3u8");
+                        }
+                    }
+                } else if (state.focusZone === "movie_list") {
+                    var mv = state.movies[state.movieIndex];
+                    if (mv) {
+                        if (mv.url) {
+                            startPlayer(mv.url, mv.title, mv.isLive);
+                        } else if (mv.archiveId) {
+                            playArchiveItem(mv);
+                        }
+                    }
+                }
+            }
+        } else if (key === 461 || key === 8) { // Назад в меню
+            if (state.focusZone !== "tabs") {
+                state.focusZone = "tabs";
+            }
+        }
+
+        updateFocusVisuals();
+        if (evt.preventDefault) { evt.preventDefault(); }
+        return false;
+    };
+
+    // =========================================================
+    // ИНИЦИАЛИЗАЦИЯ ПРИ СТАРТЕ
+    // =========================================================
+    function init() {
+        state.movies = defaultMovies.slice(0);
+        renderMovies();
+        switchTab("tv");
+        state.focusZone = "list";
+        updateFocusVisuals();
+        loadChannelsOnlineFirst();
+    }
+
+    if (window.addEventListener) {
+        window.addEventListener("load", init, false);
+    } else {
+        window.onload = init;
+    }
+})();
+</script>
+</body>
+</html>

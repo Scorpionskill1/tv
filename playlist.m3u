@@ -1,0 +1,41 @@
+#EXTM3U
+#EXTINF:-1 tvg-id="ChannelOne.ru@SD" group-title="Федеральные",Первый канал (HD)
+http://31.148.48.15/Pervii_kanal_HD/index.m3u8
+#EXTINF:-1 tvg-id="MatchUltra.ru@4K" group-title="Федеральные",Матч! ТВ
+http://31.148.5.241/kanal_3/index.m3u8
+#EXTINF:-1 tvg-id="NTV.ru@HD" group-title="Федеральные",НТВ (HD)
+http://flussonic.linkintel.ru/ntv/index.m3u8
+#EXTINF:-1 tvg-id="Channel5.ru@SD" group-title="Федеральные",Пятый канал
+http://31.148.5.241/kanal_5/index.m3u8
+#EXTINF:-1 tvg-id="RussiaK.ru@SD" group-title="Федеральные",Россия-К (Культура)
+http://31.148.5.241/kanal_6/index.m3u8
+#EXTINF:-1 tvg-id="OTR.ru@SD" group-title="Федеральные",ОТР
+http://31.148.5.241/kanal_9/index.m3u8
+#EXTINF:-1 tvg-id="TVCentr.ru@SD" group-title="Федеральные",ТВ Центр
+http://31.148.5.241/kanal_10/index.m3u8
+#EXTINF:-1 tvg-id="RENTV.ru@SD" group-title="Федеральные",РЕН ТВ
+http://31.148.5.241/kanal_11/index.m3u8
+#EXTINF:-1 tvg-id="Spas.ru@SD" group-title="Федеральные",Спас
+http://31.148.5.241/kanal_12/index.m3u8
+#EXTINF:-1 tvg-id="STS.ru@SD" group-title="Федеральные",СТС
+http://31.148.5.241/kanal_13/index.m3u8
+#EXTINF:-1 tvg-id="Domashniy.ru@SD" group-title="Федеральные",Домашний
+http://31.148.5.241/kanal_14/index.m3u8
+#EXTINF:-1 tvg-id="TV3.ru@SD" group-title="Федеральные",ТВ-3
+http://31.148.5.241/kanal_15/index.m3u8
+#EXTINF:-1 tvg-id="Friday.ru@SD" group-title="Федеральные",Пятница!
+http://31.148.5.241/kanal_16/index.m3u8
+#EXTINF:-1 tvg-id="Zvezda.ru@SD" group-title="Федеральные",Звезда
+http://51.158.144.33:2021/zvezda/index.m3u8
+#EXTINF:-1 tvg-id="Mir.ru@Plus4" group-title="Федеральные",Мир
+http://31.148.48.15/Mir/index.m3u8
+#EXTINF:-1 tvg-id="TNT.ru@SD" group-title="Федеральные",ТНТ
+http://31.148.5.241/kanal_19/index.m3u8
+#EXTINF:-1 tvg-id="MuzTV.ru@SD" group-title="Федеральные",Муз-ТВ
+https://stream8.cinerama.uz/1200/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-id="NTV.ru@Plus1" group-title="Резерв",НТВ (+1)
+https://cdn.ntv.ru/ntv1/playlist.m3u8
+#EXTINF:-1 tvg-id="STS.ru@HD" group-title="Резерв",СТС (HD)
+http://stream.mcquack.net/138/index.m3u8
+#EXTINF:-1 tvg-id="TNT.ru@HD" group-title="Резерв",ТНТ (HD)
+http://45.153.24.78/TNT/index.m3u8
